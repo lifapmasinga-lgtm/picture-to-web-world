@@ -7,15 +7,21 @@ function showPage(id) {
   document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
   document.getElementById(id).classList.add("active");
   document.querySelector('[data-page="' + id + '"]').classList.add("active");
-  document.getElementById("sidebar").classList.remove("open"); // close menu on mobile
+  document.body.classList.remove("open"); // close menu on mobile
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 document.querySelectorAll(".nav-item").forEach(btn =>
   btn.addEventListener("click", () => showPage(btn.dataset.page)));
-document.querySelectorAll(".card").forEach(card =>
-  card.addEventListener("click", () => showPage(card.dataset.go)));
-document.getElementById("menuBtn").addEventListener("click", () =>
-  document.getElementById("sidebar").classList.toggle("open"));
+document.querySelectorAll("[data-go]").forEach(el =>
+  el.addEventListener("click", () => showPage(el.dataset.go)));
+
+// Sidebar toggle: hides it on desktop, slides it in on mobile
+document.getElementById("menuBtn").addEventListener("click", () => {
+  if (window.innerWidth <= 860) document.body.classList.toggle("open");
+  else document.body.classList.toggle("collapsed");
+});
+document.getElementById("overlay").addEventListener("click", () => document.body.classList.remove("open"));
 
 // ---------- 2. PROMPT ENGINEERING ----------
 // Every tool has a clear ROLE, TASK, FORMAT and RULES so answers are reliable.
