@@ -3,10 +3,10 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AI Workplace Productivity Assistant" },
-      { name: "description", content: "Calm AI dashboard for emails, meeting notes, planning, research and chat." },
-      { property: "og:title", content: "AI Workplace Productivity Assistant" },
-      { property: "og:description", content: "Calm AI dashboard for emails, meeting notes, planning, research and chat." },
+      { title: "Trestle — AI Workplace Productivity Assistant" },
+      { name: "description", content: "Trestle: calm AI dashboard for emails, meeting notes, planning, research and chat." },
+      { property: "og:title", content: "Trestle — AI Workplace Productivity Assistant" },
+      { property: "og:description", content: "Trestle: calm AI dashboard for emails, meeting notes, planning, research and chat." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
