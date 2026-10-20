@@ -3,139 +3,178 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Workplace Productivity Assistant</title>
+  <title>WorkCalm AI — Workplace Productivity Assistant</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Mobile top bar -->
-  <header class="topbar">
-    <button id="menuBtn" class="menu-btn" aria-label="Open menu">☰</button>
-    <span class="brand-small">🌿 WorkCalm AI</span>
-  </header>
+  <!-- ICON SYMBOLS (reusable line icons instead of emojis) -->
+  <svg width="0" height="0" style="position:absolute">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 6h3M4 12h3M4 18h3"/><path d="M10 6l2 2 4-4M10 12h10M10 18h10"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+    <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/></symbol>
+  </svg>
 
-  <!-- SIDEBAR NAVIGATION -->
+  <!-- SIDEBAR (hidden/shown with the panel button) -->
   <aside id="sidebar" class="sidebar">
-    <div class="brand">🌿 <span>WorkCalm AI</span></div>
+    <div class="brand">
+      <div class="logo"><svg><use href="#i-spark"/></svg></div>
+      <div><b>WorkCalm AI</b><small>Productivity Suite</small></div>
+    </div>
+    <p class="nav-label">Workspace</p>
     <nav>
-      <button class="nav-item active" data-page="home">🏠 Dashboard</button>
-      <button class="nav-item" data-page="email">✉️ Email Generator</button>
-      <button class="nav-item" data-page="notes">📝 Meeting Summarizer</button>
-      <button class="nav-item" data-page="planner">📅 Task Planner</button>
-      <button class="nav-item" data-page="research">🔎 Research Assistant</button>
-      <button class="nav-item" data-page="chat">💬 AI Chatbot</button>
+      <button class="nav-item active" data-page="home"><svg><use href="#i-grid"/></svg>Dashboard</button>
+      <button class="nav-item" data-page="email"><svg><use href="#i-mail"/></svg>Email Generator</button>
+      <button class="nav-item" data-page="notes"><svg><use href="#i-doc"/></svg>Notes Summarizer</button>
+      <button class="nav-item" data-page="planner"><svg><use href="#i-check"/></svg>Task Planner</button>
+      <button class="nav-item" data-page="research"><svg><use href="#i-search"/></svg>Research</button>
+      <button class="nav-item" data-page="chat"><svg><use href="#i-chat"/></svg>AI Chat</button>
     </nav>
-    <p class="sidebar-note">Calm colours · no flashing · low distraction</p>
+    <p class="sidebar-note">Powered by Lovable AI</p>
   </aside>
+  <div id="overlay" class="overlay"></div>
 
-  <main class="main">
+  <div class="shell">
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <button id="menuBtn" class="icon-btn" aria-label="Toggle sidebar"><svg><use href="#i-panel"/></svg></button>
+      <span class="pill"><svg><use href="#i-info"/></svg>AI-generated content may require human review</span>
+    </header>
 
-    <!-- DASHBOARD HOME -->
-    <section id="home" class="page active">
-      <h1>Good day 👋</h1>
-      <p class="lead">Your AI workplace assistant. Pick a tool to get started.</p>
-      <div class="cards">
-        <div class="card" data-go="email"><div class="icon">✉️</div><h3>Email Generator</h3><p>Write professional emails in any tone.</p></div>
-        <div class="card" data-go="notes"><div class="icon">📝</div><h3>Meeting Summarizer</h3><p>Get decisions, actions and deadlines.</p></div>
-        <div class="card" data-go="planner"><div class="icon">📅</div><h3>Task Planner</h3><p>Turn a task list into a prioritised schedule.</p></div>
-        <div class="card" data-go="research"><div class="icon">🔎</div><h3>Research Assistant</h3><p>Summaries, insights and recommendations.</p></div>
-        <div class="card" data-go="chat"><div class="icon">💬</div><h3>AI Chatbot</h3><p>Ask anything about your work.</p></div>
-      </div>
-      <div class="disclaimer">⚠️ <b>Responsible AI:</b> AI can make mistakes. Always review outputs before sending or acting on them. Do not enter passwords, personal ID numbers or confidential company data.</div>
-    </section>
+    <main class="main">
 
-    <!-- 1. EMAIL GENERATOR -->
-    <section id="email" class="page">
-      <h1>✉️ Smart Email Generator</h1>
-      <div class="tool">
-        <div class="panel">
-          <label>Who is the email to?</label>
-          <input id="emailTo" placeholder="e.g. My manager, a client" />
-          <label>What is it about?</label>
-          <textarea id="emailTopic" rows="5" placeholder="e.g. Ask for a deadline extension on the Q3 report"></textarea>
-          <label>Tone</label>
-          <select id="emailTone">
-            <option>Formal</option><option>Friendly</option><option>Persuasive</option>
-          </select>
-          <button class="btn" data-tool="email">Generate Email</button>
+      <!-- DASHBOARD -->
+      <section id="home" class="page active">
+        <div class="hero">
+          <span class="badge"><svg><use href="#i-spark"/></svg>Powered by AI</span>
+          <h1>Your <span class="grad">AI workplace</span> assistant</h1>
+          <p>Automate emails, summarize meetings, plan your week and research smarter — all from one calm, simple workspace.</p>
+          <div class="hero-actions">
+            <button class="btn" data-go="email">Start with Email <svg><use href="#i-arrow"/></svg></button>
+            <button class="btn ghost" data-go="chat">Open AI Chat</button>
+          </div>
         </div>
-        <div class="panel output-panel">
-          <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="emailOut">Copy</button></div>
-          <textarea id="emailOut" class="output" placeholder="Your AI email will appear here..."></textarea>
-        </div>
-      </div>
-    </section>
 
-    <!-- 2. MEETING NOTES SUMMARIZER -->
-    <section id="notes" class="page">
-      <h1>📝 Meeting Notes Summarizer</h1>
-      <div class="tool">
-        <div class="panel">
-          <label>Paste your meeting notes</label>
-          <textarea id="notesIn" rows="10" placeholder="Paste long notes here..."></textarea>
-          <button class="btn" data-tool="notes">Summarize</button>
+        <div class="stats">
+          <div class="stat"><div class="stat-ic"><svg><use href="#i-clock"/></svg></div><div><b>8.5h</b><small>Hours saved per week</small></div></div>
+          <div class="stat"><div class="stat-ic"><svg><use href="#i-bolt"/></svg></div><div><b>12×</b><small>Faster response time</small></div></div>
+          <div class="stat"><div class="stat-ic"><svg><use href="#i-shield"/></svg></div><div><b>100%</b><small>Editable &amp; private</small></div></div>
         </div>
-        <div class="panel output-panel">
-          <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="notesOut">Copy</button></div>
-          <textarea id="notesOut" class="output" placeholder="Summary, decisions, action items and deadlines..."></textarea>
-        </div>
-      </div>
-    </section>
 
-    <!-- 3. TASK PLANNER -->
-    <section id="planner" class="page">
-      <h1>📅 AI Task Planner</h1>
-      <div class="tool">
-        <div class="panel">
-          <label>List your tasks (one per line)</label>
-          <textarea id="tasksIn" rows="8" placeholder="Finish report&#10;Team meeting 10am&#10;Reply to client"></textarea>
-          <label>Plan type</label>
-          <select id="planType"><option>Daily</option><option>Weekly</option></select>
-          <label>Working hours</label>
-          <input id="hours" value="08:00 - 17:00" />
-          <button class="btn" data-tool="planner">Create Plan</button>
+        <h2>Productivity tools</h2>
+        <p class="lead">Pick a tool to get started.</p>
+        <div class="cards">
+          <div class="card" data-go="email"><div class="icon"><svg><use href="#i-mail"/></svg></div><h3>Smart Email Generator</h3><p>Draft polished emails in seconds with tone control.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
+          <div class="card" data-go="notes"><div class="icon"><svg><use href="#i-doc"/></svg></div><h3>Meeting Notes Summarizer</h3><p>Turn raw notes into decisions and action items.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
+          <div class="card" data-go="planner"><div class="icon"><svg><use href="#i-check"/></svg></div><h3>AI Task Planner</h3><p>Prioritise your day using urgency and importance.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
+          <div class="card" data-go="research"><div class="icon"><svg><use href="#i-search"/></svg></div><h3>Research Assistant</h3><p>Summaries, insights and recommendations.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
+          <div class="card" data-go="chat"><div class="icon"><svg><use href="#i-chat"/></svg></div><h3>AI Workplace Chat</h3><p>Ask anything about your work, any time.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
         </div>
-        <div class="panel output-panel">
-          <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="plannerOut">Copy</button></div>
-          <textarea id="plannerOut" class="output" placeholder="Your prioritised schedule..."></textarea>
-        </div>
-      </div>
-    </section>
 
-    <!-- 4. RESEARCH ASSISTANT -->
-    <section id="research" class="page">
-      <h1>🔎 AI Research Assistant</h1>
-      <div class="tool">
-        <div class="panel">
-          <label>Topic or article text</label>
-          <textarea id="researchIn" rows="10" placeholder="e.g. Benefits of remote work, or paste an article"></textarea>
-          <button class="btn" data-tool="research">Research</button>
-        </div>
-        <div class="panel output-panel">
-          <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="researchOut">Copy</button></div>
-          <textarea id="researchOut" class="output" placeholder="Summary, insights and recommendations..."></textarea>
-        </div>
-      </div>
-    </section>
+        <div class="disclaimer"><svg><use href="#i-shield"/></svg><div><b>Responsible AI.</b> AI can make mistakes. Always review outputs before sending or acting on them. Do not enter passwords, ID numbers or confidential company data.</div></div>
+      </section>
 
-    <!-- 5. CHATBOT -->
-    <section id="chat" class="page">
-      <h1>💬 AI Workplace Chatbot</h1>
-      <div class="chat-box">
-        <div id="chatLog" class="chat-log">
-          <div class="msg bot">Hi! I'm your workplace assistant. How can I help today?</div>
+      <!-- EMAIL -->
+      <section id="email" class="page">
+        <h1 class="page-title"><span class="title-ic"><svg><use href="#i-mail"/></svg></span>Smart Email Generator</h1>
+        <div class="tool">
+          <div class="panel">
+            <label>Who is the email to?</label>
+            <input id="emailTo" placeholder="e.g. My manager, a client" />
+            <label>What is it about?</label>
+            <textarea id="emailTopic" rows="5" placeholder="e.g. Ask for a deadline extension on the Q3 report"></textarea>
+            <label>Tone</label>
+            <select id="emailTone"><option>Formal</option><option>Friendly</option><option>Persuasive</option></select>
+            <button class="btn" data-tool="email">Generate Email</button>
+          </div>
+          <div class="panel output-panel">
+            <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="emailOut">Copy</button></div>
+            <textarea id="emailOut" class="output" placeholder="Your AI email will appear here..."></textarea>
+          </div>
         </div>
-        <form id="chatForm" class="chat-form">
-          <input id="chatIn" placeholder="Type your question..." autocomplete="off" />
-          <button class="btn">Send</button>
-        </form>
-      </div>
-    </section>
+      </section>
 
-    <footer class="footer">⚠️ AI-generated content may be inaccurate. Please review before use.</footer>
-  </main>
+      <!-- NOTES -->
+      <section id="notes" class="page">
+        <h1 class="page-title"><span class="title-ic"><svg><use href="#i-doc"/></svg></span>Meeting Notes Summarizer</h1>
+        <div class="tool">
+          <div class="panel">
+            <label>Paste your meeting notes</label>
+            <textarea id="notesIn" rows="10" placeholder="Paste long notes here..."></textarea>
+            <button class="btn" data-tool="notes">Summarize</button>
+          </div>
+          <div class="panel output-panel">
+            <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="notesOut">Copy</button></div>
+            <textarea id="notesOut" class="output" placeholder="Summary, decisions, action items and deadlines..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- PLANNER -->
+      <section id="planner" class="page">
+        <h1 class="page-title"><span class="title-ic"><svg><use href="#i-check"/></svg></span>AI Task Planner</h1>
+        <div class="tool">
+          <div class="panel">
+            <label>List your tasks (one per line)</label>
+            <textarea id="tasksIn" rows="8" placeholder="Finish report&#10;Team meeting 10am&#10;Reply to client"></textarea>
+            <label>Plan type</label>
+            <select id="planType"><option>Daily</option><option>Weekly</option></select>
+            <label>Working hours</label>
+            <input id="hours" value="08:00 - 17:00" />
+            <button class="btn" data-tool="planner">Create Plan</button>
+          </div>
+          <div class="panel output-panel">
+            <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="plannerOut">Copy</button></div>
+            <textarea id="plannerOut" class="output" placeholder="Your prioritised schedule..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESEARCH -->
+      <section id="research" class="page">
+        <h1 class="page-title"><span class="title-ic"><svg><use href="#i-search"/></svg></span>AI Research Assistant</h1>
+        <div class="tool">
+          <div class="panel">
+            <label>Topic or article text</label>
+            <textarea id="researchIn" rows="10" placeholder="e.g. Benefits of remote work, or paste an article"></textarea>
+            <button class="btn" data-tool="research">Research</button>
+          </div>
+          <div class="panel output-panel">
+            <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="researchOut">Copy</button></div>
+            <textarea id="researchOut" class="output" placeholder="Summary, insights and recommendations..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- CHAT -->
+      <section id="chat" class="page">
+        <h1 class="page-title"><span class="title-ic"><svg><use href="#i-chat"/></svg></span>AI Workplace Chat</h1>
+        <div class="chat-box">
+          <div id="chatLog" class="chat-log">
+            <div class="msg bot">Hello. I'm your workplace assistant. How can I help today?</div>
+          </div>
+          <form id="chatForm" class="chat-form">
+            <input id="chatIn" placeholder="Type your question..." autocomplete="off" />
+            <button class="btn">Send <svg><use href="#i-arrow"/></svg></button>
+          </form>
+        </div>
+      </section>
+
+      <footer class="footer">AI-generated content may be inaccurate. Please review before use.</footer>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
