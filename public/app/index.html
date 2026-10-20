@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Workplace Productivity Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Mobile top bar -->
+  <header class="topbar">
+    <button id="menuBtn" class="menu-btn" aria-label="Open menu">☰</button>
+    <span class="brand-small">🌿 WorkCalm AI</span>
+  </header>
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside id="sidebar" class="sidebar">
+    <div class="brand">🌿 <span>WorkCalm AI</span></div>
+    <nav>
+      <button class="nav-item active" data-page="home">🏠 Dashboard</button>
+      <button class="nav-item" data-page="email">✉️ Email Generator</button>
+      <button class="nav-item" data-page="notes">📝 Meeting Summarizer</button>
+      <button class="nav-item" data-page="planner">📅 Task Planner</button>
+      <button class="nav-item" data-page="research">🔎 Research Assistant</button>
+      <button class="nav-item" data-page="chat">💬 AI Chatbot</button>
+    </nav>
+    <p class="sidebar-note">Calm colours · no flashing · low distraction</p>
+  </aside>
+
+  <main class="main">
+
+    <!-- DASHBOARD HOME -->
+    <section id="home" class="page active">
+      <h1>Good day 👋</h1>
+      <p class="lead">Your AI workplace assistant. Pick a tool to get started.</p>
+      <div class="cards">
+        <div class="card" data-go="email"><div class="icon">✉️</div><h3>Email Generator</h3><p>Write professional emails in any tone.</p></div>
+        <div class="card" data-go="notes"><div class="icon">📝</div><h3>Meeting Summarizer</h3><p>Get decisions, actions and deadlines.</p></div>
+        <div class="card" data-go="planner"><div class="icon">📅</div><h3>Task Planner</h3><p>Turn a task list into a prioritised schedule.</p></div>
+        <div class="card" data-go="research"><div class="icon">🔎</div><h3>Research Assistant</h3><p>Summaries, insights and recommendations.</p></div>
+        <div class="card" data-go="chat"><div class="icon">💬</div><h3>AI Chatbot</h3><p>Ask anything about your work.</p></div>
+      </div>
+      <div class="disclaimer">⚠️ <b>Responsible AI:</b> AI can make mistakes. Always review outputs before sending or acting on them. Do not enter passwords, personal ID numbers or confidential company data.</div>
+    </section>
+
+    <!-- 1. EMAIL GENERATOR -->
+    <section id="email" class="page">
+      <h1>✉️ Smart Email Generator</h1>
+      <div class="tool">
+        <div class="panel">
+          <label>Who is the email to?</label>
+          <input id="emailTo" placeholder="e.g. My manager, a client" />
+          <label>What is it about?</label>
+          <textarea id="emailTopic" rows="5" placeholder="e.g. Ask for a deadline extension on the Q3 report"></textarea>
+          <label>Tone</label>
+          <select id="emailTone">
+            <option>Formal</option><option>Friendly</option><option>Persuasive</option>
+          </select>
+          <button class="btn" data-tool="email">Generate Email</button>
+        </div>
+        <div class="panel output-panel">
+          <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="emailOut">Copy</button></div>
+          <textarea id="emailOut" class="output" placeholder="Your AI email will appear here..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. MEETING NOTES SUMMARIZER -->
+    <section id="notes" class="page">
+      <h1>📝 Meeting Notes Summarizer</h1>
+      <div class="tool">
+        <div class="panel">
+          <label>Paste your meeting notes</label>
+          <textarea id="notesIn" rows="10" placeholder="Paste long notes here..."></textarea>
+          <button class="btn" data-tool="notes">Summarize</button>
+        </div>
+        <div class="panel output-panel">
+          <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="notesOut">Copy</button></div>
+          <textarea id="notesOut" class="output" placeholder="Summary, decisions, action items and deadlines..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. TASK PLANNER -->
+    <section id="planner" class="page">
+      <h1>📅 AI Task Planner</h1>
+      <div class="tool">
+        <div class="panel">
+          <label>List your tasks (one per line)</label>
+          <textarea id="tasksIn" rows="8" placeholder="Finish report&#10;Team meeting 10am&#10;Reply to client"></textarea>
+          <label>Plan type</label>
+          <select id="planType"><option>Daily</option><option>Weekly</option></select>
+          <label>Working hours</label>
+          <input id="hours" value="08:00 - 17:00" />
+          <button class="btn" data-tool="planner">Create Plan</button>
+        </div>
+        <div class="panel output-panel">
+          <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="plannerOut">Copy</button></div>
+          <textarea id="plannerOut" class="output" placeholder="Your prioritised schedule..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. RESEARCH ASSISTANT -->
+    <section id="research" class="page">
+      <h1>🔎 AI Research Assistant</h1>
+      <div class="tool">
+        <div class="panel">
+          <label>Topic or article text</label>
+          <textarea id="researchIn" rows="10" placeholder="e.g. Benefits of remote work, or paste an article"></textarea>
+          <button class="btn" data-tool="research">Research</button>
+        </div>
+        <div class="panel output-panel">
+          <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="researchOut">Copy</button></div>
+          <textarea id="researchOut" class="output" placeholder="Summary, insights and recommendations..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CHATBOT -->
+    <section id="chat" class="page">
+      <h1>💬 AI Workplace Chatbot</h1>
+      <div class="chat-box">
+        <div id="chatLog" class="chat-log">
+          <div class="msg bot">Hi! I'm your workplace assistant. How can I help today?</div>
+        </div>
+        <form id="chatForm" class="chat-form">
+          <input id="chatIn" placeholder="Type your question..." autocomplete="off" />
+          <button class="btn">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">⚠️ AI-generated content may be inaccurate. Please review before use.</footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
