@@ -17,7 +17,7 @@ export const Route = createFileRoute("/api/public/ai")({
           .map((m) => ({ role: m.role, content: m.content.slice(0, 12000) }));
         if (!messages.length) return new Response("No input", { status: 400 });
 
-        const apiKey = process.env.LOVABLE_API_KEY!;
+        const apiKey = process.env["LOVABLE_API_KEY"]!;
         const provider = createOpenAI({
           baseURL: "https://ai.gateway.lovable.dev/v1",
           apiKey,
