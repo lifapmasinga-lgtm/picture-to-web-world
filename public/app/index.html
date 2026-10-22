@@ -3,15 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trestle — Workplace Productivity Assistant</title>
+  <title>Trestle — Your work, supported. Done faster.</title>
+  <meta name="description" content="Trestle — Your work, supported. Done faster. Email, meeting notes, planning, research and workplace chat." />
+  <meta property="og:title" content="Trestle — Your work, supported. Done faster." />
+  <meta property="og:description" content="A calm workspace for emails, meeting notes, planning, research and chat." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Opening sequence is skipped whenever motion is disabled. -->
+  <div id="splash" class="splash" hidden role="status" aria-live="polite">
+    <div class="splash-inner"><div class="splash-logo"><svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" rx="28" fill="#8a6d52"/>
+  <g stroke="#f5efe8" stroke-linecap="round" fill="none">
+    <g stroke-width="4" opacity=".7"><line x1="8" y1="30" x2="21" y2="30"/><line x1="4" y1="42" x2="21" y2="42"/><line x1="12" y1="54" x2="21" y2="54"/></g>
+    <line x1="44" y1="62" x2="30" y2="106" stroke-width="6"/><line x1="84" y1="62" x2="98" y2="106" stroke-width="6"/>
+    <line x1="37" y1="86" x2="91" y2="86" stroke-width="5" opacity=".35"/><line x1="37" y1="86" x2="72" y2="86" stroke-width="5"/>
+  </g>
+  <rect x="30" y="20" width="68" height="42" rx="15" fill="#f5efe8"/>
+  <g fill="#8a6d52"><circle cx="49" cy="41" r="5"/><circle cx="64" cy="41" r="5"/><circle cx="79" cy="41" r="5"/></g>
+</svg></div><h1>Trestle</h1><p id="splashStatus">Getting your workspace ready…</p></div>
+  </div>
+  <div class="ambient" aria-hidden="true"><i></i><i></i></div>
 
   <!-- ICON SYMBOLS (reusable line icons instead of emojis) -->
   <svg width="0" height="0" style="position:absolute">
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
     <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
     <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h4"/></symbol>
@@ -31,8 +52,17 @@
   <!-- SIDEBAR (hidden/shown with the panel button) -->
   <aside id="sidebar" class="sidebar">
     <div class="brand">
-      <div class="logo"><svg><use href="#i-trestle"/></svg></div>
-      <div><b>Trestle</b><small>Productivity Suite</small></div>
+      <div class="logo" aria-hidden="true"><svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" rx="28" fill="#8a6d52"/>
+  <g stroke="#f5efe8" stroke-linecap="round" fill="none">
+    <g stroke-width="4" opacity=".7"><line x1="8" y1="30" x2="21" y2="30"/><line x1="4" y1="42" x2="21" y2="42"/><line x1="12" y1="54" x2="21" y2="54"/></g>
+    <line x1="44" y1="62" x2="30" y2="106" stroke-width="6"/><line x1="84" y1="62" x2="98" y2="106" stroke-width="6"/>
+    <line x1="37" y1="86" x2="91" y2="86" stroke-width="5" opacity=".35"/><line x1="37" y1="86" x2="72" y2="86" stroke-width="5"/>
+  </g>
+  <rect x="30" y="20" width="68" height="42" rx="15" fill="#f5efe8"/>
+  <g fill="#8a6d52"><circle cx="49" cy="41" r="5"/><circle cx="64" cy="41" r="5"/><circle cx="79" cy="41" r="5"/></g>
+</svg></div>
+      <div><b>Trestle</b><small>Your work, supported.<br />Done faster.</small></div>
     </div>
     <p class="nav-label">Workspace</p>
     <nav>
@@ -43,14 +73,24 @@
       <button class="nav-item" data-page="research"><svg><use href="#i-search"/></svg>Research</button>
       <button class="nav-item" data-page="chat"><svg><use href="#i-chat"/></svg>AI Chat</button>
     </nav>
-    <p class="sidebar-note">Powered by Lovable AI</p>
+    <div class="sidebar-bottom"><label class="effects-control" for="effectsToggle"><span id="effectsLabel">Effects: On</span><input id="effectsToggle" type="checkbox" role="switch" checked /></label><p class="sidebar-note">Powered by Lovable AI</p></div>
   </aside>
   <div id="overlay" class="overlay"></div>
 
   <div class="shell">
     <!-- TOP BAR -->
     <header class="topbar">
-      <button id="menuBtn" class="icon-btn" aria-label="Toggle sidebar"><svg><use href="#i-panel"/></svg></button>
+      <button id="menuBtn" class="icon-btn" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="true"><svg><use href="#i-panel"/></svg></button>
+      <div class="mobile-brand"><span class="logo" aria-hidden="true"><svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" rx="28" fill="#8a6d52"/>
+  <g stroke="#f5efe8" stroke-linecap="round" fill="none">
+    <g stroke-width="4" opacity=".7"><line x1="8" y1="30" x2="21" y2="30"/><line x1="4" y1="42" x2="21" y2="42"/><line x1="12" y1="54" x2="21" y2="54"/></g>
+    <line x1="44" y1="62" x2="30" y2="106" stroke-width="6"/><line x1="84" y1="62" x2="98" y2="106" stroke-width="6"/>
+    <line x1="37" y1="86" x2="91" y2="86" stroke-width="5" opacity=".35"/><line x1="37" y1="86" x2="72" y2="86" stroke-width="5"/>
+  </g>
+  <rect x="30" y="20" width="68" height="42" rx="15" fill="#f5efe8"/>
+  <g fill="#8a6d52"><circle cx="49" cy="41" r="5"/><circle cx="64" cy="41" r="5"/><circle cx="79" cy="41" r="5"/></g>
+</svg></span><b>Trestle</b></div>
       <span class="pill"><svg><use href="#i-info"/></svg>AI-generated content may require human review</span>
     </header>
 
@@ -60,7 +100,8 @@
       <section id="home" class="page active">
         <div class="hero">
           <span class="badge"><svg><use href="#i-spark"/></svg>Powered by AI</span>
-          <h1>Your <span class="grad">AI workplace</span> assistant</h1>
+          <h1>Trestle</h1>
+          <p class="tagline">Your work, supported. Done faster.</p>
           <p>Automate emails, summarize meetings, plan your week and research smarter — all from one calm, simple workspace.</p>
           <div class="hero-actions">
             <button class="btn" data-go="email">Start with Email <svg><use href="#i-arrow"/></svg></button>
@@ -77,14 +118,14 @@
         <h2>Productivity tools</h2>
         <p class="lead">Pick a tool to get started.</p>
         <div class="cards">
-          <div class="card" data-go="email"><div class="icon"><svg><use href="#i-mail"/></svg></div><h3>Smart Email Generator</h3><p>Draft polished emails in seconds with tone control.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
-          <div class="card" data-go="notes"><div class="icon"><svg><use href="#i-doc"/></svg></div><h3>Meeting Notes Summarizer</h3><p>Turn raw notes into decisions and action items.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
-          <div class="card" data-go="planner"><div class="icon"><svg><use href="#i-check"/></svg></div><h3>AI Task Planner</h3><p>Prioritise your day using urgency and importance.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
-          <div class="card" data-go="research"><div class="icon"><svg><use href="#i-search"/></svg></div><h3>Research Assistant</h3><p>Summaries, insights and recommendations.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
-          <div class="card" data-go="chat"><div class="icon"><svg><use href="#i-chat"/></svg></div><h3>AI Workplace Chat</h3><p>Ask anything about your work, any time.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
+          <div class="card" role="button" tabindex="0" data-go="email"><div class="icon"><svg><use href="#i-mail"/></svg></div><h3>Smart Email Generator</h3><p>Draft polished emails in seconds with tone control.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
+          <div class="card" role="button" tabindex="0" data-go="notes"><div class="icon"><svg><use href="#i-doc"/></svg></div><h3>Meeting Notes Summarizer</h3><p>Turn raw notes into decisions and action items.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
+          <div class="card" role="button" tabindex="0" data-go="planner"><div class="icon"><svg><use href="#i-check"/></svg></div><h3>AI Task Planner</h3><p>Prioritise your day using urgency and importance.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
+          <div class="card" role="button" tabindex="0" data-go="research"><div class="icon"><svg><use href="#i-search"/></svg></div><h3>Research Assistant</h3><p>Summaries, insights and recommendations.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
+          <div class="card" role="button" tabindex="0" data-go="chat"><div class="icon"><svg><use href="#i-chat"/></svg></div><h3>AI Workplace Chat</h3><p>Ask anything about your work, any time.</p><span class="open">Open tool <svg><use href="#i-arrow"/></svg></span></div>
         </div>
 
-        <div class="disclaimer"><svg><use href="#i-shield"/></svg><div><b>Responsible AI.</b> AI can make mistakes. Always review outputs before sending or acting on them. Do not enter passwords, ID numbers or confidential company data.</div></div>
+        <div class="disclaimer"><svg><use href="#i-shield"/></svg><div>AI can make mistakes. Always review outputs before sending or acting on them. Do not enter passwords, ID numbers or confidential company data.</div></div>
       </section>
 
       <!-- EMAIL -->
@@ -92,19 +133,21 @@
         <h1 class="page-title"><span class="title-ic"><svg><use href="#i-mail"/></svg></span>Smart Email Generator</h1>
         <div class="tool">
           <div class="panel">
-            <label>Who is the email to?</label>
+            <label for="emailTo">Who is the email to?</label>
             <input id="emailTo" placeholder="e.g. My manager, a client" />
-            <label>What is it about?</label>
+            <label for="emailTopic">What is it about?</label>
             <textarea id="emailTopic" rows="5" placeholder="e.g. Ask for a deadline extension on the Q3 report"></textarea>
-            <label>Tone</label>
+            <label for="emailTone">Tone</label>
             <select id="emailTone"><option>Formal</option><option>Friendly</option><option>Persuasive</option></select>
             <button class="btn" data-tool="email">Generate Email</button>
           </div>
           <div class="panel output-panel">
-            <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="emailOut">Copy</button></div>
+            <div class="out-head"><label for="emailOut">Result (editable)</label><button class="copy" data-copy="emailOut">Copy</button></div>
             <textarea id="emailOut" class="output" placeholder="Your AI email will appear here..."></textarea>
+            <p class="check"><b>Check before you use</b> · Check names, dates and tone before sending.</p>
           </div>
         </div>
+        <details class="prompt-preview"><summary>Show the prompt</summary><pre id="emailPrompt"></pre></details>
       </section>
 
       <!-- NOTES -->
@@ -112,15 +155,17 @@
         <h1 class="page-title"><span class="title-ic"><svg><use href="#i-doc"/></svg></span>Meeting Notes Summarizer</h1>
         <div class="tool">
           <div class="panel">
-            <label>Paste your meeting notes</label>
+            <label for="notesIn">Paste your meeting notes</label>
             <textarea id="notesIn" rows="10" placeholder="Paste long notes here..."></textarea>
             <button class="btn" data-tool="notes">Summarize</button>
           </div>
           <div class="panel output-panel">
-            <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="notesOut">Copy</button></div>
+            <div class="out-head"><label for="notesOut">Result (editable)</label><button class="copy" data-copy="notesOut">Copy</button></div>
             <textarea id="notesOut" class="output" placeholder="Summary, decisions, action items and deadlines..."></textarea>
+            <p class="check"><b>Check before you use</b> · Check decisions, owners and deadlines against your notes.</p>
           </div>
         </div>
+        <details class="prompt-preview"><summary>Show the prompt</summary><pre id="notesPrompt"></pre></details>
       </section>
 
       <!-- PLANNER -->
@@ -128,19 +173,21 @@
         <h1 class="page-title"><span class="title-ic"><svg><use href="#i-check"/></svg></span>AI Task Planner</h1>
         <div class="tool">
           <div class="panel">
-            <label>List your tasks (one per line)</label>
+            <label for="tasksIn">List your tasks (one per line)</label>
             <textarea id="tasksIn" rows="8" placeholder="Finish report&#10;Team meeting 10am&#10;Reply to client"></textarea>
-            <label>Plan type</label>
+            <label for="planType">Plan type</label>
             <select id="planType"><option>Daily</option><option>Weekly</option></select>
-            <label>Working hours</label>
+            <label for="hours">Working hours</label>
             <input id="hours" value="08:00 - 17:00" />
             <button class="btn" data-tool="planner">Create Plan</button>
           </div>
           <div class="panel output-panel">
-            <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="plannerOut">Copy</button></div>
+            <div class="out-head"><label for="plannerOut">Result (editable)</label><button class="copy" data-copy="plannerOut">Copy</button></div>
             <textarea id="plannerOut" class="output" placeholder="Your prioritised schedule..."></textarea>
+            <p class="check"><b>Check before you use</b> · Check priorities, timings and workload before starting.</p>
           </div>
         </div>
+        <details class="prompt-preview"><summary>Show the prompt</summary><pre id="plannerPrompt"></pre></details>
       </section>
 
       <!-- RESEARCH -->
@@ -148,15 +195,17 @@
         <h1 class="page-title"><span class="title-ic"><svg><use href="#i-search"/></svg></span>AI Research Assistant</h1>
         <div class="tool">
           <div class="panel">
-            <label>Topic or article text</label>
+            <label for="researchIn">Topic or article text</label>
             <textarea id="researchIn" rows="10" placeholder="e.g. Benefits of remote work, or paste an article"></textarea>
             <button class="btn" data-tool="research">Research</button>
           </div>
           <div class="panel output-panel">
-            <div class="out-head"><b>Result (editable)</b><button class="copy" data-copy="researchOut">Copy</button></div>
+            <div class="out-head"><label for="researchOut">Result (editable)</label><button class="copy" data-copy="researchOut">Copy</button></div>
             <textarea id="researchOut" class="output" placeholder="Summary, insights and recommendations..."></textarea>
+            <p class="check"><b>Check before you use</b> · Check facts and sources before acting on recommendations.</p>
           </div>
         </div>
+        <details class="prompt-preview"><summary>Show the prompt</summary><pre id="researchPrompt"></pre></details>
       </section>
 
       <!-- CHAT -->
@@ -167,13 +216,16 @@
             <div class="msg bot">Hello. I'm your workplace assistant. How can I help today?</div>
           </div>
           <form id="chatForm" class="chat-form">
+            <label class="chat-label" for="chatIn">Your question</label>
             <input id="chatIn" placeholder="Type your question..." autocomplete="off" />
             <button class="btn">Send <svg><use href="#i-arrow"/></svg></button>
           </form>
         </div>
+        <p class="check"><b>Check before you use</b> · Check facts and advice before acting.</p>
+        <details class="prompt-preview"><summary>Show the prompt</summary><pre id="chatPrompt"></pre></details>
       </section>
 
-      <footer class="footer">AI-generated content may be inaccurate. Please review before use.</footer>
+      <footer class="footer"><b>Trestle</b> · AI can make mistakes. Always review outputs before sending or acting on them. Do not enter passwords, ID numbers or confidential company data.</footer>
     </main>
   </div>
 
